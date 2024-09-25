@@ -7,9 +7,22 @@ let url = `${baseURL}${method_mine}&user_id=${myID}&nojsoncallback=1&format=json
 // 콘솔문에 not valid json 오류뜨는 경우
 // 원인 : json데이터가 callback함수안에 들어가 있는 경우
 // 해결방법 : format=json&nojsoncallback=1 (callback 안쪽의 json데이터를 직접 가져옴)
+// 2시 5분까지 위의 방법으로 데이터가 잘 불러와지는지 테스트
+const list = document.querySelector(".list");
 
 fetch(url)
 	.then((data) => data.json())
 	.then((json) => {
-		console.log(json);
+		console.log(json.photos.photo);
+		const picArr = json.photos.photo;
+		let tags = "";
+		picArr.forEach((pic) => {
+			tags += `
+        <li>
+          <h2>${pic.title}</h2>
+        </li>
+      `;
+		});
+
+		list.innerHTML = tags;
 	});
