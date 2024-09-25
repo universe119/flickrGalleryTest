@@ -1,2 +1,53 @@
 @import "reset";
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+main {
+  width: 100%;
+  padding: 10vh 10vw;
+  h1 {
+    font: 100 7vmax/1 "raleway";
+    color: #555;
+    margin-bottom: 60px;
+  }
+  .list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    li {
+      width: 22%;
+      margin-bottom: 70px;
+      .pic {
+        width: 100%;
+        height: 20vw;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      h2 {
+        border-top: 1px solid #bbb;
+        border-bottom: 1px solid #bbb;
+        margin: 14px 0px;
+        padding: 14px 0px;
+        font: 300 0.8rem/1.2 "raleway";
+        color: #222;
+      }
+      .profile {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        img {
+          width: 30px;
+        }
+        span {
+          font: 300 0.5rem/1 "orbitron";
+          color: orange;
+        }
+      }
+    }
+  }
+}

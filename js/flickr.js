@@ -19,7 +19,15 @@ fetch(url)
 		picArr.forEach((pic) => {
 			tags += `
         <li>
+          <figure class="pic">
+            <img src="https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg" alt=${pic.title}/>
+          </figure>
           <h2>${pic.title}</h2>
+
+          <div class="profile">
+            <img src="http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg" alt=${pic.owner} />
+            <span>${pic.owner}</span>
+          </div>
         </li>
       `;
 		});
