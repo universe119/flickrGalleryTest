@@ -1,5 +1,9 @@
-const [btnMine, btnPopular] = document.querySelectorAll("nav button");
 let dataType = "";
+const [btnMine, btnPopular] = document.querySelectorAll("nav button");
+//searchBox안쪽에 있는 두번째 요소인 input, 세번째 요소인 btnSearch를 비구조할당으로 변수할당
+const [_, inputSearch, btnSearch] =
+	document.querySelector(".searchBox").children;
+// console.log(btnSearch); // input확인
 
 //fetch 함수 호출시 인수값을 객체 형태로 전달
 //이유: search, user타입 갤러리는 타입외에도 유저명, 검색어등의 추가 정보값을 제공해야 되기 때문
@@ -8,7 +12,13 @@ fetchFlickr({ type: "mine" });
 //각 버튼 클릭시 갤러리 타입 변경
 btnMine.addEventListener("click", () => fetchFlickr({ type: "mine" }));
 btnPopular.addEventListener("click", () => fetchFlickr({ type: "interest" }));
-
+//검색버튼 클릭시
+btnSearch.addEventListener("click", () => {
+	//인풋요소의 value값 (검색어)을 tags에 담아 fetchFlickr함수 호출
+	fetchFlickr({ type: "search", tags: inputSearch.value });
+	//호출시 input요소의 검색어는 지워줌
+	inputSearch.value = "";
+});
 //특정 요소에 특정 함수 연결
 document.body.addEventListener("click", (e) => {
 	if (e.target.className === "thumb") createModal(e);
@@ -28,15 +38,20 @@ function fetchFlickr(opt) {
 	const myID = "197119297@N02";
 	const method_mine = "flickr.people.getPhotos";
 	const method_interest = "flickr.interestingness.getList";
+	// 검색전용 api메서드 추가
+	const method_search = "flickr.photos.search";
 	let url_mine = `${baseURL}${method_mine}&user_id=${myID}&nojsoncallback=1&format=json`;
 	let url_user = `${baseURL}${method_mine}&user_id=${opt.userID}&nojsoncallback=1&format=json`;
-	let url_search = `${baseURL}${method_mine}&tags=${opt.type}&nojsoncallback=1&format=json`;
 	let url_interest = `${baseURL}${method_interest}&nojsoncallback=1&format=json`;
+	//opt로 전달된 tags 프로퍼티의 값을 tags라는 쿼리값 연동
+	let url_search = `${baseURL}${method_search}&tags=${opt.tags}&nojsoncallback=1&format=json`;
 	let result_url = "";
+
 	if (opt.type === "mine") result_url = url_mine;
-	else if (opt.type === "interest") result_url = url_interest;
-	else if (opt.type.indexOf("search*"));
-	else if (opt.type === user) result_url = url_user;
+	if (opt.type === "interest") result_url = url_interest;
+	if (opt.type === "user") result_url = url_user;
+	// 전달된 opt.type값이 search이면 url_search 요청을 fetch함수에 전달
+	if (opt.type === "search") result_url = url_search;
 
 	fetch(result_url)
 		.then((data) => data.json())
