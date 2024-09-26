@@ -10,33 +10,61 @@ main {
     margin-bottom: 60px;
   }
 
-  nav {
-    margin-bottom: 40px;
+  .controls {
     display: flex;
-    width: 100%;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
-    button {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      font: 500 0.6rem/1 "orbitron";
-      color: #fff;
-      opacity: 0.8;
-      transition: 0.5s;
-      &:hover {
-        transform: scale(1.2);
-        opacity: 1;
+    
+    nav {
+      margin-bottom: 40px;
+      display: flex;
+      // width: 100%; controls추가, 버튼추가로 삭제.
+      flex-wrap: wrap;
+      gap: 20px;
+      button {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font: 500 0.6rem/1 "orbitron";
+        color: #fff;
+        opacity: 0.8;
+        transition: 0.5s;
+        &:hover {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+        &:nth-of-type(1) {
+          background: linear-gradient(45deg, aqua, #49d3fd);
+          box-shadow: 10px 10px 20px rgba(0, 255, 255, 0.5);
+        }
+        &:nth-of-type(2) {
+          background: linear-gradient(45deg, hotpink, #df21df);
+          box-shadow: 10px 10px 20px rgba(255, 0, 234, 0.5);
+        }
       }
-      &:nth-of-type(1) {
-        background: linear-gradient(45deg, aqua, #49d3fd);
-        box-shadow: 10px 10px 20px rgba(0, 255, 255, 0.5);
+    }
+
+    article {
+      input {
+        padding: 4px 7px;
+        border: 1px solid #bbb;
+        border-radius: 3px; 
       }
-      &:nth-of-type(2) {
-        background: linear-gradient(45deg, hotpink, #df21df);
-        box-shadow: 10px 10px 20px rgba(255, 0, 234, 0.5);
+
+      button {
+        width: 100px;
+        height: 25px;
+        background: #444;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        font: 0.6rem/25px "orbitron";
+        color: #fff;
+        text-align: center;
+        border: none;
+        position: relative;
+        top: -1px;
+        border-radius: 3px; 
       }
     }
   }
@@ -46,6 +74,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
     li {
       width: 22%;
       margin-bottom: 70px;
@@ -67,6 +96,7 @@ main {
         font: 300 0.8rem/1.2 "raleway";
         color: #222;
       }
+
       .profile {
         width: 100%;
         display: flex;
@@ -81,7 +111,7 @@ main {
           cursor: pointer;
           display: inline-block;
           transition: 0.5s;
-          
+
           &:hover {
             color: hotpink;
             transform: scale(1.1);
