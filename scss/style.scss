@@ -51,3 +51,44 @@ main {
     }
   }
 }
+@media screen and (max-width: 999px) {
+  main {
+    .list {
+      li {
+        width: 32%;
+        .pic {
+          height: 30vw;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 699px) {
+  main {
+    .list {
+      li {
+        width: 48%;
+        .pic {
+          height: 50vw;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 399px) {
+  main {
+    h1 {
+      font-size: 5vmax;
+    }
+    .list {
+      li {
+        width: 100%;
+        .pic {
+          height: 60vw;
+        }
+      }
+    }
+  }
+}
+//10분쉬고 3시부터 ~3시 10분까지 반응형 구현
+//가로로 4개, 3개, 2개, 1개씩 배치가 되도록 반응형 스타일링 구현
