@@ -42,6 +42,20 @@ document.body.addEventListener("click", (e) => {
 	if (e.target.className === "btnClose") removeModal();
 });
 
+//이미지 엑박시 대체이미지 연결 함수
+function setDefImg() {
+	const profilePic = document.querySelectorAll(".profile img"); //algarve sunset long exposure요 이미지가 엑박이므로 수정한거,
+	console.log(profilePic);
+	profilePic.forEach(
+		(imgEl) =>
+			(imgEl.onerror = () =>
+				imgEl.setAttribute(
+					"src",
+					"https://www.flickr.com/images/buddyicon.gif"
+				))
+	);
+}
+
 //모달생성 함수
 function createModal(e) {
 	const imgSrc = e.target.getAttribute("alt");
@@ -86,21 +100,10 @@ function createList(dataArr) {
 
 	list.innerHTML = tags;
 
-	const profilePic = document.querySelectorAll(".profile img");
-	console.log(profilePic);
-	profilePic.forEach(
-		(imgEl) =>
-			(imgEl.onerror = () =>
-				imgEl.setAttribute(
-					"src",
-					"https://www.flickr.com/images/buddyicon.gif"
-				))
-	);
+	setDefImg();
 }
-//
-
 //미션
-//- createList()라는 함수를 생성
-//- fetchFlickr 함수에서 동적 리스트 생성하는 코드를 createList함수로 분리
-//- 인수로 데이터 배열을 전달받아 목록 ㅜㄹ력
-//- 9시 25분까지
+//createList 안쪽에서 프로필 이미지 엑박시 대체이미지 바꿔치기 하는 기능을 또다른 함수로 분리
+//setDefaultImage() - 9시 40분까지 고민
+
+// 개발자모드에서 네트워크 보면 My Gallery를 클릭시 똑같은 데이터가 한번 더 받아지는게 보이는데 이걸 어찌 해결해야할지 생각해보기
