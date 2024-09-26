@@ -1,4 +1,5 @@
 const [btnMine, btnPopular] = document.querySelectorAll("nav button");
+let dataType = "";
 
 //스크립트 처음 로드시에는 내갤러리 출력
 fetchFlickr("mine");
@@ -15,6 +16,13 @@ document.body.addEventListener("click", (e) => {
 
 //flickr fetching함수
 function fetchFlickr(type) {
+	//인수로 전달된 type정보와 현재 출력되고 있는 dataType이 동일하면
+	// 다시 data fetching할 필요가 없으므로 return으로 강제 함수 종료
+	// 만약 타입이 다르면 해당 if문 무시
+	if (type === dataType) return;
+	//인수로 전달된 타입명으로 현재 dataType을 변경
+	dataType = type;
+
 	const api_key = "21e294ad0ec03a32d7355980457d9e11";
 	const baseURL = `https://www.flickr.com/services/rest/?api_key=${api_key}&method=`;
 	const myID = "197119297@N02";
