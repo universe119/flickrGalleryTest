@@ -20,7 +20,7 @@ fetch(url)
 			tags += `
         <li>
           <figure class="pic">
-            <img src="https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg" alt=${pic.title}/>
+          <img class='thumb' src="https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_z.jpg" alt="https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_b.jpg" />
           </figure>
           <h2>${pic.title}</h2>
 
@@ -34,3 +34,27 @@ fetch(url)
 
 		list.innerHTML = tags;
 	});
+
+//미션1 - 현재 img.thumb을 클릭시 레이어모달이 생성됨 처리
+//미션2 - 동적으로 생성된 레이어팝업의 닫기버튼 클릭시 레이어모달 제거
+//미션3 - img.thumb의 alt속성에 숨겨놓은 큰해상도의 이미지 url을 레이어모달 안에 출력
+document.body.addEventListener("click", (e) => {
+	if (e.target.className === "thumb") {
+		console.log(e.target);
+		const imgSrc = e.target.getAttribute("alt");
+		const modal = document.createElement("aside");
+		modal.classList.add("modal");
+		modal.innerHTML = `
+      <div class='con'>
+        <img src=${imgSrc} />
+      </div>
+      <button class='btnClose'>CLOSE</button>
+    `;
+		document.body.append(modal);
+	}
+});
+document.body.addEventListener("click", (e) => {
+	if (e.target.className === "btnClose") {
+		document.querySelector(".modal").remove();
+	}
+});
