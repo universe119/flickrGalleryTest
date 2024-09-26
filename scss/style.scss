@@ -40,7 +40,7 @@ main {
       }
     }
   }
-  
+
   .list {
     width: 100%;
     display: flex;
@@ -78,6 +78,14 @@ main {
         span {
           font: 300 0.5rem/1 "orbitron";
           color: orange;
+          cursor: pointer;
+          display: inline-block;
+          transition: 0.5s;
+          
+          &:hover {
+            color: hotpink;
+            transform: scale(1.1);
+          }
         }
       }
     }

@@ -12,6 +12,8 @@ btnPopular.addEventListener("click", () => fetchFlickr("interest"));
 document.body.addEventListener("click", (e) => {
 	if (e.target.className === "thumb") createModal(e);
 	if (e.target.className === "btnClose") removeModal();
+	//목록에서 사용자 프로필 아이디 클릭시 클릭한 span요소의 사용자 아이디 텍스트값을 fetchFlickr의 인수로 전달해 호출
+	if (e.target.className === "userID") fetchFlickr(e.target.innerText);
 });
 
 //flickr fetching함수
@@ -31,9 +33,17 @@ function fetchFlickr(type) {
 	const method_interest = "flickr.interestingness.getList";
 
 	let url_mine = `${baseURL}${method_mine}&user_id=${myID}&nojsoncallback=1&format=json`;
-	let url_interest = `${baseURL}${method_interest}&nojsoncallback=1&format=json`;
+	//type으로 특정사용자의 ID값을 전달 받은뒤 user_id쿼리에 연결하면 해당 사용자의 갤러리를 호출하는 요청 URL생성
+	let url_user = `${baseURL}${method_mine}&user_id=${type}&nojsoncallback=1&format=json`;
 
-	let result_url = type === "mine" ? url_mine : url_interest;
+	let url_interest = `${baseURL}${method_interest}&nojsoncallback=1&format=json`;
+	let result_url = "";
+	// &&연산자 뒤에 변수에 값을 할당하는 대입연산자를 사용하고 싶을때는
+	// 대입식을 괄호로 묶어서 표현식으로 변경
+	if (type === "mine") result_url = url_mine;
+	else if (type === "interest") result_url = url_interest;
+	//type이 mine, interest가 아니면 특정 사용자 ID일테니 url_user요청 아이디를 result_url에 담아서 fetch함수에 전달
+	else result_url = url_user;
 
 	fetch(result_url)
 		.then((data) => data.json())
@@ -48,6 +58,7 @@ function fetchFlickr(type) {
 document.body.addEventListener("click", (e) => {
 	if (e.target.className === "thumb") createModal(e);
 	if (e.target.className === "btnClose") removeModal();
+	if (e.target.className === "userID") fetchFlickr(e.target.innerText);
 });
 
 //이미지 엑박시 대체이미지 연결 함수
@@ -100,7 +111,7 @@ function createList(dataArr) {
 
       <div class="profile">
         <img src="http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg" alt=${pic.owner} />
-        <span>${pic.owner}</span>
+        <span class='userID'>${pic.owner}</span>
       </div>
     </li>
     `;
@@ -110,8 +121,3 @@ function createList(dataArr) {
 
 	setDefImg();
 }
-//미션
-//createList 안쪽에서 프로필 이미지 엑박시 대체이미지 바꿔치기 하는 기능을 또다른 함수로 분리
-//setDefaultImage() - 9시 40분까지 고민
-
-// 개발자모드에서 네트워크 보면 My Gallery를 클릭시 똑같은 데이터가 한번 더 받아지는게 보이는데 이걸 어찌 해결해야할지 생각해보기
