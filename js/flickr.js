@@ -1,17 +1,18 @@
-//{type:"Search",tags:"sky"}
-//"{type:"Search",tags:"하늘"}" -> JSON.stringify로 객체를 강제 문자화한 상태
-
 let optString = "";
 const [btnMine, btnPopular] = document.querySelectorAll("nav button");
-const [_, inputSearch, btnSearch] =
-	document.querySelector(".searchBox").children;
+const searchBox = document.querySelector(".searchBox");
+const inputSearch = searchBox.querySelector("input");
 
 fetchFlickr({ type: "mine" });
 
 btnMine.addEventListener("click", () => fetchFlickr({ type: "mine" }));
 btnPopular.addEventListener("click", () => fetchFlickr({ type: "interest" }));
-btnSearch.addEventListener("click", () => {
-	//검색어를 입력하지 않고 검색버튼 클릭시 함수 강제 중지
+
+//form요소에 직접 submit이벤트 연결
+searchBox.addEventListener("submit", (e) => {
+	// 해당 폼요소를 실제 서버로 전달할 것이 아니기에
+	// e.preventDefault()로 form전송 기능을 막아줌
+	e.preventDefault();
 	if (!inputSearch.value) return;
 	fetchFlickr({ type: "search", tags: inputSearch.value });
 	inputSearch.value = "";
@@ -25,13 +26,10 @@ document.body.addEventListener("click", (e) => {
 });
 
 function fetchFlickr(opt) {
-	//참조링크 비교가 아닌 값 자체를 비교하기 위해서
-	//opt객체를 강제로 문자화해서 stringifyOpt변수에 저장
 	let stringifyOpt = JSON.stringify(opt);
-	//문자화된 옵션객체 자체를 비교처리
 	if (stringifyOpt === optString) return;
-	//문자화된 옵션 객체를 전역변수는 optString에 저장해서 다음번 비교에 사용
 	optString = stringifyOpt;
+	// console.log(stringifyOpt);
 
 	const api_key = "21e294ad0ec03a32d7355980457d9e11";
 	const baseURL = `https://www.flickr.com/services/rest/?api_key=${api_key}&method=`;
